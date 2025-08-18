@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.log
+.env
+.env.*
+
+# Django
+/resqmate_backend/db.sqlite3
+/resqmate_backend/media/
+/staticfiles/
+
+# Virtual environments
+/venv/
+/resqmate_backend/venv/
+
+# Node / React
+/resqmate_frontend/node_modules/
+/resqmate_frontend/.env
+/resqmate_frontend/build/
+/resqmate_frontend/.cache/
+
+# Editors / tooling
+.vscode/
+.qodo/
+
+# OS
+.DS_Store
+Thumbs.db
