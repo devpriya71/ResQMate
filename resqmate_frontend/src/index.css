@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Subtle animations */
+@keyframes fade-up {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.animate-fade-up { animation: fade-up 500ms ease-out both; }
+.animate-fade-in { animation: fade-in 400ms ease-out both; }
+
+/***** utility compose *****/
+.btn-base {
+  @apply transition-colors duration-200;
+}
+.btn-soft {
+  @apply transition-transform duration-200 hover:scale-[1.02];
+}
+.card-soft {
+  @apply transition-transform duration-200 hover:scale-[1.01] hover:shadow-md;
+}
+.card-appear {
+  @apply animate-fade-up;
+}
