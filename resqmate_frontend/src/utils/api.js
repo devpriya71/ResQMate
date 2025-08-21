@@ -1,6 +1,7 @@
 // src/utils/api.js
 
-const API_BASE_URL = 'http://localhost:8000/api';
+const HOST = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
+const API_BASE_URL = `http://${HOST}:8000/api`;
 
 // Get auth token from localStorage
 const getAuthToken = () => {

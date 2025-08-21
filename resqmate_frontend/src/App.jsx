@@ -13,6 +13,7 @@ import DonationPage from './pages/DonationPage.jsx';
 import VolunteerHubPage from './pages/VolunteerHubPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 import LandingPage from './pages/LandingPage.jsx';
+import TrustedContactsPage from './pages/TrustedContactsPage.jsx';
 
 function App() {
   useEffect(() => {
@@ -90,6 +91,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/trusted-contacts"
+            element={
+              <ProtectedRoute>
+                <TrustedContactsPage />
               </ProtectedRoute>
             }
           />

@@ -14,7 +14,8 @@ export const connectAlertsSocket = (token) => {
         return ws;
     }
 
-    ws = new WebSocket(`ws://localhost:8000/ws/alerts/?token=${token}`);
+    const HOST = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
+    ws = new WebSocket(`ws://${HOST}:8000/ws/alerts/?token=${token}`);
 
     ws.onopen = () => {
         console.log('WebSocket connected');

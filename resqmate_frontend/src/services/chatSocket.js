@@ -13,7 +13,8 @@ export const connectChatSocket = () => {
         return ws;
     }
 
-    ws = new WebSocket('ws://localhost:8000/ws/chat/');
+    const HOST = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
+    ws = new WebSocket(`ws://${HOST}:8000/ws/chat/`);
 
     ws.onmessage = (event) => {
         try {

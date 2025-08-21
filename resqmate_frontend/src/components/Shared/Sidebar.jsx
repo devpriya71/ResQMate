@@ -21,6 +21,7 @@ const Sidebar = ({ onLogout }) => {
     { path: '/sos', icon: AlertTriangle, label: 'SOS Alerts' },
     { path: '/donations', icon: Gift, label: 'Donations' },
     { path: '/volunteer-hub', icon: Users, label: 'Volunteer Hub' },
+    { path: '/trusted-contacts', icon: Users, label: 'Trusted Contact' },
   ];
 
   const handleLogout = () => {
@@ -29,7 +30,7 @@ const Sidebar = ({ onLogout }) => {
   };
 
   return (
-    <div className="bg-white shadow-lg h-screen w-64 fixed left-0 top-0 z-40 overflow-y-auto">
+    <div className="hidden md:block bg-white shadow-lg h-screen w-64 fixed left-0 top-0 z-40 overflow-y-auto">
       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">

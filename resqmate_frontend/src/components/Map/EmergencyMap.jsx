@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Map as MapIcon, MapPin, AlertTriangle, Gift } from 'lucide-react';
 import { sosAPI, donationAPI } from '../../utils/api';
 import Loader from '../Shared/Loader.jsx';
@@ -11,6 +11,7 @@ const EmergencyMap = () => {
   const [loading, setLoading] = useState(true);
   const [mapCenter, setMapCenter] = useState({ lat: 20.5937, lng: 78.9629 }); // Default center (India)
   const [zoom, setZoom] = useState(5);
+  const mapRef = useRef(null);
 
   useEffect(() => {
     fetchMapData();
@@ -80,8 +81,8 @@ const EmergencyMap = () => {
         <h3 className="text-lg font-semibold text-gray-900">Emergency Map</h3>
       </div>
 
-      <div className="relative h-96 rounded-lg overflow-hidden">
-        <MapContainer center={[mapCenter.lat, mapCenter.lng]} zoom={zoom} style={{ height: '100%', width: '100%' }}>
+      <div className="relative h-64 sm:h-80 md:h-96 rounded-lg overflow-hidden">
+        <MapContainer whenCreated={(map)=>{ mapRef.current = map; setTimeout(()=> map.invalidateSize(), 0); }} center={[mapCenter.lat, mapCenter.lng]} zoom={zoom} style={{ height: '100%', width: '100%' }}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

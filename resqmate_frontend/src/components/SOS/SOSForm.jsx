@@ -45,8 +45,8 @@ const SOSForm = ({ onClose, onSuccess }) => {
         (position) => {
           setFormData({
             ...formData,
-            latitude: position.coords.latitude.toString(),
-            longitude: position.coords.longitude.toString(),
+            latitude: position.coords.latitude.toString().slice(0,4),
+            longitude: position.coords.longitude.toString().slice(0,4),
           });
           setGettingLocation(false);
         },
