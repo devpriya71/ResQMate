@@ -114,7 +114,16 @@ const DonationList = ({ onCreateNew }) => {
                 <MapPin className="w-4 h-4 text-gray-400 mt-0.5" />
                 <div className="flex-1">
                   <span className="text-sm text-gray-600">Pickup Address:</span>
-                  <p className="text-sm font-medium text-gray-900">{donation.pickup_address}</p>
+                  <p className="text-sm font-medium text-gray-900">
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(donation.pickup_address || '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-gray-800"
+                    >
+                      {donation.pickup_address}
+                    </a>
+                  </p>
                 </div>
               </div>
 
@@ -134,10 +143,10 @@ const DonationList = ({ onCreateNew }) => {
             )}
 
             {!donation.volunteer && (
-              <button className="w-full mt-3 bg-green-50 text-green-700 py-2 rounded-lg text-sm font-medium hover:bg-green-100 transition-colors duration-200">
+              <span className="w-full mt-3 block bg-green-50 text-green-700 py-2 rounded-lg text-sm font-medium text-center">
                 Available for pickup
-              </button>
-            )}
+              </span>
+           )}
           </div>
         ))}
       </div>

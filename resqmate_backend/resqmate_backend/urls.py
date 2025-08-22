@@ -2,8 +2,7 @@
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from rest_framework.authtoken import views as authtoken_views
-from emergencies.views import SOSAlertViewSet, DonationViewSet, VolunteerAssignView, DashboardView # Add DashboardView
+from emergencies.views import SOSAlertViewSet, DonationViewSet, VolunteerAssignView, DashboardView, HelpRequestViewSet # Add DashboardView
 from users.views import CustomAuthToken, MeView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -13,6 +12,7 @@ from users.views import UserRegistrationView
 router = DefaultRouter()
 router.register(r'sos', SOSAlertViewSet, basename='sos')
 router.register(r'donations', DonationViewSet, basename='donations')
+router.register(r'help-requests', HelpRequestViewSet, basename='help-requests')
 
 urlpatterns = [
     # Admin

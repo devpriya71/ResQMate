@@ -126,3 +126,12 @@ export const volunteerAPI = {
         body: JSON.stringify({ type, id, volunteer }),
     }),
 };
+
+// Help Request APIs
+export const helpRequestAPI = {
+    getAll: () => apiRequest('/help-requests/'),
+    create: (data) => apiRequest('/help-requests/', {
+        method: 'POST',
+        body: JSON.stringify(data),
+    }),
+};

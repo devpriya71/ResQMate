@@ -18,10 +18,12 @@ const Sidebar = ({ onLogout }) => {
   const menuItems = [
     { path: '/', icon: Home, label: 'Home' },
     { path: '/dashboard', icon: Home, label: 'Dashboard' },
+    { path: '/request-help', icon: AlertTriangle, label: 'Request Help' },
     { path: '/sos', icon: AlertTriangle, label: 'SOS Alerts' },
+    { path: '/help-requests', icon: Users, label: 'Help Requests' },
     { path: '/donations', icon: Gift, label: 'Donations' },
     { path: '/volunteer-hub', icon: Users, label: 'Volunteer Hub' },
-    { path: '/trusted-contacts', icon: Users, label: 'Trusted Contact' },
+    { path: '/trusted-contacts', icon: Users, label: 'Trusted Contacts' },
   ];
 
   const handleLogout = () => {
@@ -33,10 +35,10 @@ const Sidebar = ({ onLogout }) => {
     <div className="hidden md:block bg-white shadow-lg h-screen w-64 fixed left-0 top-0 z-40 overflow-y-auto">
       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
+          <a href='/'><button className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
             <AlertTriangle className="w-5 h-5 text-white" />
-          </div>
-          <h1 className="text-xl font-bold text-gray-900">ResQMate</h1>
+          </button></a>
+          <a href="/"><h1 className="text-xl font-bold text-gray-900">ResQMate</h1></a>
         </div>
       </div>
       

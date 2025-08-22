@@ -48,3 +48,5 @@ settings cors in middleware and cors allowed origins
 
 .\venv\Scripts\python -m daphne -b 0.0.0.0 -p 8000 resqmate_backend.asgi:application
 
+Tell me all functionalities the project have also the topbar needs to be updated it doesnt work properly and in profile page its not coming properly the search button is overlapped by sidebar in profile page and also make whole website responsive for all sizes of devices
+

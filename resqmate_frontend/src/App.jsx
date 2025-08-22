@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { connectAlertsSocket, disconnectAlertsSocket, onAlertEvent } from './services/alertsSocket';
 import { isAuthenticated } from './utils/auth.js';
 import ProtectedRoute from './components/Shared/ProtectedRoute.jsx';
+import { getAuthToken } from './utils/auth.js';
 
 // Pages
 import LoginPage from './pages/LoginPage.jsx';
@@ -14,11 +15,13 @@ import VolunteerHubPage from './pages/VolunteerHubPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 import LandingPage from './pages/LandingPage.jsx';
 import TrustedContactsPage from './pages/TrustedContactsPage.jsx';
+import RequestHelpPage from './pages/RequestHelpPage.jsx';
+import HelpRequestsPage from './pages/HelpRequestsPage.jsx';
 
 function App() {
   useEffect(() => {
     // Connect WebSocket when app starts
-    const ws = connectAlertsSocket();
+    const ws = connectAlertsSocket(getAuthToken());
 
     // Subscribe to events
     const unsubscribeSOS = onAlertEvent('new_sos', (payload) => {
@@ -71,6 +74,14 @@ function App() {
             }
           />
           <Route
+            path="/help-requests"
+            element={
+              <ProtectedRoute>
+                <HelpRequestsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/donations"
             element={
               <ProtectedRoute>
@@ -99,6 +110,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <TrustedContactsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/request-help"
+            element={
+              <ProtectedRoute>
+                <RequestHelpPage />
               </ProtectedRoute>
             }
           />

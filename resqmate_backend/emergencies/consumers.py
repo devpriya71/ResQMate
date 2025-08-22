@@ -39,6 +39,11 @@ class AlertsConsumer(AsyncWebsocketConsumer):
             'payload': event['payload'],
         }))
 
+    async def help_request_created(self, event):
+        await self.send(text_data=json.dumps({
+            'type': 'new_help_request',
+            'payload': event['payload'],
+        }))
 
 class ChatConsumer(AsyncWebsocketConsumer):
     online_users_by_group = {}

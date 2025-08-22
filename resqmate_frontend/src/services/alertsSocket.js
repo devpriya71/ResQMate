@@ -5,6 +5,7 @@ const listeners = {
     new_sos: new Set(),
     new_donation: new Set(),
     volunteer_assigned: new Set(),
+    new_help_request: new Set(),
 };
 
 export const connectAlertsSocket = (token) => {

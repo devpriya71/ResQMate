@@ -98,12 +98,6 @@ const Topbar = ({ title = 'Dashboard' }) => {
 
         {/* Center + Right: Panic button, Search, Notifications, Avatar */}
         <div className="flex flex-1 items-center space-x-3 md:space-x-4 relative" ref={boxRef}>
-          {/* Panic button */}
-          <div className="mr-2">
-            <PanicButton small token={getAuthToken()} trustedContacts={(() => {
-              try { return JSON.parse(localStorage.getItem('trustedContacts') || '[]'); } catch { return []; }
-            })()} />
-          </div>
 
           {/* Search bar */}
           <div className="hidden md:block relative w-64">
@@ -164,6 +158,12 @@ const Topbar = ({ title = 'Dashboard' }) => {
           {/* Spacer to push avatar to right */}
           <div className="flex-1" />
 
+{/* Panic button */}
+            <div className="mr-2">
+            <PanicButton small token={getAuthToken()} trustedContacts={(() => {
+              try { return JSON.parse(localStorage.getItem('trustedContacts') || '[]'); } catch { return []; }
+            })()} />
+          </div>
           {/* Avatar */}
           <Link to="/profile" className="flex items-center space-x-2 group">
             <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center overflow-hidden group-hover:bg-red-200 transition-colors">
@@ -221,7 +221,9 @@ const Topbar = ({ title = 'Dashboard' }) => {
               <Link to="/" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50">Home</Link>
               <Link to="/dashboard" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50">Dashboard</Link>
               <Link to="/sos" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50">SOS Alerts</Link>
+              <Link to="/request-help" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50">Request Help</Link>
               <Link to="/donations" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50">Donations</Link>
+              <Link to="/help-requests" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50">Help Requests</Link>
               <Link to="/volunteer-hub" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50">Volunteer Hub</Link>
               <Link to="/trusted-contacts" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50">Trusted Contacts</Link>
               <Link to="/profile" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50">Profile</Link>

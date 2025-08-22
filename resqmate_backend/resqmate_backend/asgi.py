@@ -19,6 +19,8 @@ from routing import websocket_urlpatterns
 
 # Combined ASGI application
 application = ProtocolTypeRouter({
-	"http": django_asgi_app,
+	# Handles HTTP requests. It is the default protocol. Django's normal system vies.py/urls.py will handle these.
+ 	"http": django_asgi_app, 
+	# Handles WebSocket connections using Channels. This will route WebSocket requests to the URL patterns defined in routing.py.
 	"websocket": URLRouter(websocket_urlpatterns),
 })

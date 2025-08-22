@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Gift, X } from 'lucide-react';
+import { Gift, X, MapPin } from 'lucide-react';
 import { donationAPI } from '../../utils/api';
 import Loader from '../Shared/Loader.jsx';
 
@@ -11,10 +11,40 @@ const DonationForm = ({ onClose, onSuccess }) => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [coords, setCoords] = useState({ lat: '', lon: '' });
+  const [gettingLoc, setGettingLoc] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setError('');
+  };
+
+  const useMyLocation = () => {
+    setGettingLoc(true);
+    if (!navigator.geolocation) {
+      setError('Geolocation is not supported by this browser.');
+      setGettingLoc(false);
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const lat = pos.coords.latitude.toFixed(6);
+        const lon = pos.coords.longitude.toFixed(6);
+        setCoords({ lat, lon });
+        setFormData(prev => ({
+          ...prev,
+          pickup_address: prev.pickup_address
+            ? `${prev.pickup_address}\n\nLocation: ${lat}, ${lon}\nGoogle Maps: https://www.google.com/maps?q=${lat},${lon}`
+            : `Location: ${lat}, ${lon}\nGoogle Maps: https://www.google.com/maps?q=${lat},${lon}`,
+        }));
+        setGettingLoc(false);
+      },
+      () => {
+        setError('Unable to get location. Please enter address manually.');
+        setGettingLoc(false);
+      },
+      { enableHighAccuracy: true, maximumAge: 20000, timeout: 8000 }
+    );
   };
 
   const handleSubmit = async (e) => {
@@ -99,6 +129,26 @@ const DonationForm = ({ onClose, onSuccess }) => {
               placeholder="Full address where the donation can be collected"
               required
             />
+            <div className="flex items-center gap-4 mt-2">
+              <button
+                type="button"
+                onClick={useMyLocation}
+                disabled={gettingLoc}
+                className="text-green-600 hover:text-green-700 text-sm font-medium flex items-center gap-1"
+              >
+                <MapPin className="w-4 h-4" /> {gettingLoc ? 'Getting location…' : 'Use my location'}
+              </button>
+              {coords.lat && coords.lon ? (
+                <a
+                  href={`https://www.google.com/maps?q=${coords.lat},${coords.lon}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-gray-600 underline"
+                >
+                  Open in Google Maps
+                </a>
+              ) : null}
+            </div>
           </div>
 
           <div className="flex space-x-4 pt-4">

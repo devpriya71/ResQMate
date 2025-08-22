@@ -4,3 +4,7 @@ Django==5.2.5
 djangorestframework==3.16.1
 Pillow==10.4.0
 tzdata==2025.2
+channels_redis==4.3.0
+msgpack==1.1.1
+redis==6.4.0
+sqlparse==0.5.3

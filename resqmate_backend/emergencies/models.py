@@ -60,3 +60,42 @@ class Donation(models.Model):
 
     def __str__(self):
         return f"{self.item} donation"
+
+# New HelpRequest model for victims to request assistance
+class HelpRequest(models.Model):
+    NEED_TYPES = (
+        ('medical', 'Medical'),
+        ('shelter', 'Shelter'),
+        ('food', 'Food'),
+        ('safety', 'Safety'),
+        ('transport', 'Transport'),
+        ('other', 'Other'),
+    )
+
+    URGENCY_CHOICES = (
+        ('low', 'Low'),
+        ('medium', 'Medium'),
+        ('high', 'High'),
+        ('critical', 'Critical'),
+    )
+
+    STATUS_CHOICES = (
+        ('open', 'Open'),
+        ('in_progress', 'In Progress'),
+        ('resolved', 'Resolved'),
+    )
+
+    requester = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='help_requests')
+    need_type = models.CharField(max_length=50, choices=NEED_TYPES)
+    urgency = models.CharField(max_length=10, choices=URGENCY_CHOICES, default='medium')
+    description = models.TextField()
+    location_text = models.CharField(max_length=255, blank=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    contact_phone = models.CharField(max_length=20, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='open')
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        who = self.requester.username if self.requester else 'Anonymous'
+        return f"{who} - {self.need_type} ({self.urgency})"

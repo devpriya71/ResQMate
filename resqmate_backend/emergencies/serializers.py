@@ -1,7 +1,7 @@
 # emergencies/serializers.py
 
 from rest_framework import serializers
-from .models import SOSAlert, Donation
+from .models import SOSAlert, Donation, HelpRequest
 
 # SOSAlert Serializer (ensure volunteers, severity, resolved included)
 class SOSAlertSerializer(serializers.ModelSerializer):
@@ -33,3 +33,18 @@ class DonationSerializer(serializers.ModelSerializer):
 
     def get_volunteer(self, obj):
         return obj.volunteer.username if obj.volunteer else None
+
+# HelpRequest Serializer
+class HelpRequestSerializer(serializers.ModelSerializer):
+    requester = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = HelpRequest
+        fields = [
+            'id', 'need_type', 'urgency', 'description', 'location_text',
+            'latitude', 'longitude', 'contact_phone', 'status', 'timestamp', 'requester'
+        ]
+        read_only_fields = ['status', 'timestamp', 'requester']
+
+    def get_requester(self, obj):
+        return obj.requester.username if obj.requester else None

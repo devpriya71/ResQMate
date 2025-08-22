@@ -113,7 +113,14 @@ const SOSList = ({ onCreateNew }) => {
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div className="flex items-center space-x-2 text-sm text-gray-600">
                 <MapPin className="w-4 h-4" />
-                <span>Lat: {sos.latitude}, Lng: {sos.longitude}</span>
+                <a
+                  href={`https://www.google.com/maps?q=${sos.latitude},${sos.longitude}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-gray-800"
+                >
+                  Lat: {sos.latitude}, Lng: {sos.longitude}
+                </a>
               </div>
               <div className="flex items-center space-x-2 text-sm text-gray-600">
                 <Clock className="w-4 h-4" />

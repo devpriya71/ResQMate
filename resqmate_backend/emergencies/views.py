@@ -5,9 +5,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.parsers import MultiPartParser, FormParser
-from .models import SOSAlert, Donation
+from .models import SOSAlert, Donation, HelpRequest
 from django.contrib.auth.models import User
-from .serializers import SOSAlertSerializer, DonationSerializer
+from .serializers import SOSAlertSerializer, DonationSerializer, HelpRequestSerializer
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from rest_framework.decorators import action
@@ -66,6 +66,22 @@ class DonationViewSet(viewsets.ModelViewSet):
             {
                 'type': 'donation_created',
                 'payload': DonationSerializer(instance).data,
+            }
+        )
+
+class HelpRequestViewSet(viewsets.ModelViewSet):
+    queryset = HelpRequest.objects.all().order_by('-timestamp')
+    serializer_class = HelpRequestSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        instance = serializer.save(requester=self.request.user if self.request.user.is_authenticated else None)
+        channel_layer = get_channel_layer()
+        async_to_sync(channel_layer.group_send)(
+            'alerts_broadcast_group',
+            {
+                'type': 'help_request_created',
+                'payload': HelpRequestSerializer(instance).data,
             }
         )
 

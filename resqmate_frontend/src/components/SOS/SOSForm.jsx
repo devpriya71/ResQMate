@@ -45,8 +45,8 @@ const SOSForm = ({ onClose, onSuccess }) => {
         (position) => {
           setFormData({
             ...formData,
-            latitude: position.coords.latitude.toString().slice(0,4),
-            longitude: position.coords.longitude.toString().slice(0,4),
+            latitude: position.coords.latitude.toFixed(6),
+            longitude: position.coords.longitude.toFixed(6),
           });
           setGettingLocation(false);
         },
@@ -195,6 +195,18 @@ const SOSForm = ({ onClose, onSuccess }) => {
                 required
               />
             </div>
+            {formData.latitude && formData.longitude && (
+              <div className="mt-2">
+                <a
+                  href={`https://www.google.com/maps?q=${formData.latitude},${formData.longitude}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-gray-600 underline"
+                >
+                  Open in Google Maps
+                </a>
+              </div>
+            )}
             <button
               type="button"
               onClick={getCurrentLocation}
